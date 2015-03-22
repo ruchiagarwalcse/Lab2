@@ -20,14 +20,14 @@ import java.util.logging.Logger;
 /**
  * Sample client code that makes gRPC calls to the server.
  */
-public class PollClient {
-    private static final Logger logger = Logger.getLogger(PollClient.class.getName());
+public class PollServiceClient {
+    private static final Logger logger = Logger.getLogger(PollServiceClient.class.getName());
 
     private final ChannelImpl channel;
     private final PollServiceBlockingStub blockingStub;
     private final PollServiceStub asyncStub;
 
-    public PollClient(String host, int port) {
+    public PollServiceClient(String host, int port) {
         channel = NettyChannelBuilder.forAddress(host, port)
                 .negotiationType(NegotiationType.PLAINTEXT)
                 .build();
@@ -40,7 +40,7 @@ public class PollClient {
     }
 
 
-    public void addPollService(String moderatorId, String question, String startedAt, String expiredAt, String[] choice) {
+    public void createPoll(String moderatorId, String question, String startedAt, String expiredAt, String[] choice) {
         if (choice == null || choice.length < 2){
             new RuntimeException("Choice must have two items in it.");
         }
@@ -63,14 +63,14 @@ public class PollClient {
 
 
    public static void main(String[] args) throws Exception {
-       PollClient client = new PollClient("localhost", 50051);
+       PollServiceClient client = new PollServiceClient("localhost", 50051);
         try {
             String moderatorId = "1";
             String question = "What type of smartphone do you have?";
             String startedAt = "2015-02-23T13:00:00.000Z";
             String expiredAt = "2015-02-24T13:00:00.000Z";
             String[] choice = new String[] {"Android", "iPhone"};
-            client.addPollService(moderatorId, question, startedAt, expiredAt, choice);
+            client.createPoll(moderatorId, question, startedAt, expiredAt, choice);
         } finally {
             client.shutdown();
         }

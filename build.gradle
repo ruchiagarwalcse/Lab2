@@ -65,14 +65,14 @@ task votingClient(type: JavaExec) {
     }
 }
 
-task pollServer(type: JavaExec) {
-    main = "edu.sjsu.cmpe273.lab2.PollServer"
+task pollServiceServer(type: JavaExec) {
+    main = "edu.sjsu.cmpe273.lab2.PollServiceServer"
     description = "Executes the Poll server."
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task pollClient(type: JavaExec) {
-    main = "edu.sjsu.cmpe273.lab2.PollClient"
+task pollServiceClient(type: JavaExec) {
+    main = "edu.sjsu.cmpe273.lab2.PollServiceClient"
     description = "Executes the Poll client."
     classpath = sourceSets.main.runtimeClasspath
 }

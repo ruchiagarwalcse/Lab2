@@ -18,14 +18,14 @@ import java.util.logging.Logger;
 /**
  * A sample gRPC server that serve the Polling Service.
  */
-public class PollServer {
-    private static final Logger logger = Logger.getLogger(PollServer.class.getName());
+public class PollServiceServer {
+    private static final Logger logger = Logger.getLogger(PollServiceServer.class.getName());
 
     private final int port;
     private ServerImpl gRpcServer;
     private static String id="1ADC2FZ";
 
-    public PollServer(int port) {
+    public PollServiceServer(int port) {
             this.port = port;
     }
 
@@ -39,7 +39,7 @@ public class PollServer {
             public void run() {
                 // Use stderr here since the logger may has been reset by its JVM shutdown hook.
                 System.err.println("*** shutting down gRPC server since JVM is shutting down");
-                PollServer.this.stop();
+                PollServiceServer.this.stop();
                 System.err.println("*** server shut down");
             }
         });
@@ -52,7 +52,7 @@ public class PollServer {
     }
 
     public static void main(String[] args) throws Exception {
-        PollServer server = new PollServer(50051);
+        PollServiceServer server = new PollServiceServer(50051);
         server.start();
     }
 
